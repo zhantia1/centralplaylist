@@ -12,10 +12,11 @@ class Sidebar extends React.Component {
 
   render() {
     const { queue } = this.state;
+    const { youtubeVideos } = this.props;
     return (
       <div id="sidebar">
         <Queue queue={queue}/>
-        <Player />
+        <Player youtubeVideos={youtubeVideos}/>
       </div>
     )
   }

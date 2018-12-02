@@ -6,10 +6,14 @@ const Nav = (props) => (
   <div id="nav">
     <input
       type="text"
-      onChange={(e) => props.handleNavSearch(e)}
+      onChange={(e) => props.handleNavSearchChange(e)}
     >
     </input>
-    <button>Search</button>
+    <button
+      onClick={(e) => props.handleSearchSubmit(e)}
+    >
+      Search
+    </button>
     <button>Login</button>
   </div>
 

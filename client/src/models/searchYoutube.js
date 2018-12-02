@@ -1,22 +1,24 @@
 const axios = require('axios');
-const key = require('../apiKey')
+const apikey = require('../../youtubeAPI');
 
-const searchYoutube = ({query, max = 10}, callback) => {
+const searchYoutube = ({query, max = 5}, callback) => {
   axios.get('https://www.googleapis.com/youtube/v3/search', {
-    part: 'snippet',
-    key: key,
-    q: query,
-    maxResults: max,
-    type: 'video',
-    videoEmbeddable: 'true'
+    params: {
+      part: 'snippet',
+      key: apikey,
+      q: query,
+      maxResults: max,
+      type: 'video',
+      videoEmbeddable: 'true'
+    }
   })
     .then((response) => {
       console.log(response);
+      callback(response.data.items)
     })
     .catch((err) => {
       console.log(err);
     })
 }
-
 
 export default searchYoutube;
