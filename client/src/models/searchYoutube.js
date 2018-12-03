@@ -13,7 +13,6 @@ const searchYoutube = ({query, max = 5}, callback) => {
     }
   })
     .then((response) => {
-      console.log(response);
       callback(response.data.items)
     })
     .catch((err) => {

@@ -10,11 +10,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      firstMount: true,
       query: 'sad!',
       youtubeVideos: null,
+      spotifyTracks: null,
+      currSong: null,
     }
     this.handleNavSearchChange = this.handleNavSearchChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.playNow = this.playNow.bind(this);
   }
 
   componentWillMount() {
@@ -28,33 +32,57 @@ class App extends React.Component {
     console.log(this.state)
   }
 
-  handleSearchSubmit(e) {
-    const { query } = this.state;
-    searchYoutube({ query }, (videos) => {
-      console.log('searched!', videos);
-      this.setState({
-        youtubeVideos: videos,
-      })
-    });
-    searchSpotify({ query }, (songs) => {
-      console.log('searchedSpotify!', songs);
+  handleLogin() {
+    this.setState({
+      loggedIn: true,
     })
   }
 
+  handleSearchSubmit() {
+    const { query, firstMount } = this.state;
+    searchYoutube({ query }, (videos) => {
+      console.log('youtube searched!', videos);
+      this.setState({
+        youtubeVideos: videos,
+      });
+      if (firstMount) {
+        this.setState({
+          firstMount: false,
+          currSong: ['youtube', videos[0]],
+        });
+      }
+    });
+    searchSpotify({ query }, (tracks) => {
+      console.log('spotify searched!', tracks);
+      this.setState({
+        spotifyTracks: tracks,
+      });
+    });
+  }
+
+  playNow(e) {
+    e.preventDefault();
+    console.log(e.target)
+  }
+
   render() {
-    const { youtubeVideos, currVideo } = this.state;
+    const { youtubeVideos, currSong, spotifyTracks } = this.state;
+
     return (
       <div>
+        <a id="spotify-login" href="/login">LOGIN WITH SPOTIFY</a> :
         <Nav 
           handleNavSearchChange={this.handleNavSearchChange}
           handleSearchSubmit={this.handleSearchSubmit}
         />
         <MainView
           youtubeVideos={youtubeVideos}
+          spotifyTracks={spotifyTracks}
+          playNow={this.playNow}
         />
         <Sidebar 
           youtubeVideos={youtubeVideos}
-          currVideo={currVideo}
+          currSong={currSong}
         />
         <Footer />
       </div>
