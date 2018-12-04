@@ -5,6 +5,13 @@
   </head>
   <body>
     <div id="app"></div>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+      const access_token = window.location.hash.slice(14);
+      window.onSpotifyWebPlaybackSDKReady = () => {
+        window.Spotify = Spotify;
+      };
+    </script>
   </body>
   <script src="bundle.js"></script>
 </html>
