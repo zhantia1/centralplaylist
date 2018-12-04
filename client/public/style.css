@@ -1,18 +1,37 @@
 #MainView {
+  position: absolute;
+  width: 70%;
+  right: 0;
   margin-top: 60px;
   display: flex;
   flex-direction: row;
   padding: 16px;
 }
 
+#sidebar {
+  height: 100%;
+  width: 25%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(116, 116, 116);
+  padding-top: 20px;
+  overflow-x: hidden;
+  z-index: 2;
+}
 #nav {
-  width: 100%;
+  width: 75%;
   top: 0;
   position: fixed;
-  left: 0;
+  right: 0;
   height: 40px;
   padding: 10px 16px;
   background-color: aliceblue;
+  text-align: center;
+  z-index: 1;
+}
+
+#player {
   text-align: center;
 }
 
@@ -24,6 +43,7 @@
   bottom: 0;
   background-color: aliceblue;
   text-align: center;
+  z-index: 3;
 }
 
 #spotify-login {
@@ -65,4 +85,9 @@ input[type=text] {
   box-sizing: border-box;
   border: 2px solid slategray;
   border-radius: 5px;
+}
+
+.currTrack {
+  color: rgb(110, 44, 44);
+  font-weight: bold;
 }

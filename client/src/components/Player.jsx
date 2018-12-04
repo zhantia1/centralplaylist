@@ -5,8 +5,8 @@ const Player = ({ currSong, handleYoutubePlayer, play, nextInQueue }) => {
   
   let autoplay = play === true ? 1 : 0;
   const options = {
-    height: '300',
-    width: '300',
+    height: '250',
+    width: '250',
     playerVars: {
       autoplay: autoplay
     }
@@ -22,8 +22,7 @@ const Player = ({ currSong, handleYoutubePlayer, play, nextInQueue }) => {
             onStateChange={(e) => handleYoutubePlayer(e)}
             onEnd={(e) => nextInQueue(e)}
           />
-          <h1>SPOTIFY PLAYER</h1>
-          <iframe src={`https://open.spotify.com/embed/track/${currSong[1].id}`} width="300" height="300" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          <iframe src={`https://open.spotify.com/embed/track/${currSong[1].id}`} width="250" height="250" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </div>
 )};
 
