@@ -9,8 +9,10 @@ const Playlists = ({ playlists, changePlaylistView, handleUsePlaylist }) => (
       {playlists.map((playlist, index) => {
         return (
           <div key={index} className="playlist-entry">
-            <h3>{index + 1}. {playlist.playlists.name}</h3>
-            <Button onClick={() => handleUsePlaylist(index)}>use</Button>
+            <h3 className="playlist-entry-title">{index + 1}. {playlist.playlists.name}</h3>
+            <div className="playlist-entry-button">
+              <Button circular icon="check" onClick={() => handleUsePlaylist(index)}></Button>
+            </div>
           </div>
         )
       })}

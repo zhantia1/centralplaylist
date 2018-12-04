@@ -1,27 +1,69 @@
 import React from 'react';
+import { List, Header, Icon } from 'semantic-ui-react';
 
 const Queue = ({ queue, currIndex }) => (
-  queue.length === 0 ? <div>Queue is currently empty</div> :
+  queue.length === 0 ? 
     <div id="queue">
-      <h4>QUEUE:</h4>
-      <ul>
+      <Header as='h4'>
+        <Icon name="unordered list"/>
+        <Header.Content>QUEUE:</Header.Content>
+        <div>Queue is currently empty...</div>
+      </Header>
+    </div> :
+    <div id="queue">
+      <Header as='h4'>
+        <Icon name="unordered list"/>
+        <Header.Content>QUEUE:</Header.Content>
+      </Header>
+      <List divided relaxed>
         {queue.map((elem, index) => {
           if (elem[0] === 'spotify') {
-            {console.log(queue[currIndex])}
             if (index === currIndex) {
-              return <li className='currTrack' key={elem[1].id}>{elem[1].name} by {elem[1].artists[0].name}</li>
+              return (
+                <List.Item className="currTrack" key={elem[1].id}>
+                  <List.Content>
+                    <List.Header>
+                      {elem[1].name} by {elem[1].artists[0].name}
+                    </List.Header>
+                  </List.Content>
+                </List.Item>
+              )
             } else {
-              return <li key={elem[1].id}>{elem[1].name} by {elem[1].artists[0].name}</li>
+                return (
+                  <List.Item key={elem[1].id}>
+                    <List.Content>
+                        <List.Header>
+                          {elem[1].name} by {elem[1].artists[0].name}
+                        </List.Header>
+                      </List.Content>
+                  </List.Item>
+                )
             }
           } else {
             if (index === currIndex) {
-              return <li className='currTrack' key={elem[1].etag}>{elem[1].snippet.title}</li>
+              return (
+                <List.Item className='currTrack' key={elem[1].etag}>
+                    <List.Content>
+                        <List.Header>
+                          {elem[1].snippet.title}
+                        </List.Header>
+                      </List.Content>
+                  </List.Item>
+              )
             } else {
-              return <li key={elem[1].etag}>{elem[1].snippet.title}</li>
+              return (
+                <List.Item key={elem[1].etag}>
+                    <List.Content>
+                        <List.Header>
+                          {elem[1].snippet.title}
+                        </List.Header>
+                      </List.Content>
+                  </List.Item>
+              )
             }
           }
         })}
-      </ul>
+      </List>
     </div>
 
 )

@@ -15,11 +15,13 @@ const Nav = ({handleNavSearchChange, handleSearchSubmit, handlePlaylistButtonCli
       onChange={(e) => handleNavSearchChange(e)}
     >
     </Input>
-    <Button icon labelPosition='right' onClick={(e) => handleSearchSubmit(e)}>
-      <Icon name='search' />
-      Search
-    </Button>
-    <Button onClick={(e) => handlePlaylistButtonClick(e)}>Playlists</Button>
+    <div className="nav-buttons">
+      <Button icon labelPosition='right' onClick={(e) => handleSearchSubmit(e)}>
+        <Icon name='search' />
+        Search
+      </Button>
+      <Button onClick={(e) => handlePlaylistButtonClick(e)}>Playlists</Button>
+    </div>
   </div>
 
 )
