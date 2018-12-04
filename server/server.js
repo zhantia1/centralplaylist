@@ -5,6 +5,8 @@ const request = require('request'); // "Request" library
 const cors = require('cors');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
+const db = require('../db/db.js');
+const Playlist = require('../db/playList.js');
 
 app.use(express.static(__dirname + '/../client/public'))
   .use(cors())
@@ -104,6 +106,12 @@ app.get('/callback', function(req, res) {
     });
   }
 });
+
+app.get('/playlist', (req, res) => {
+  Playlist.find({ username: 'tony'}, (err, data) => {
+    res.send(data);
+  });
+})
 
 app.get('/refresh_token', function(req, res) {
   

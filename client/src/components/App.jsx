@@ -5,6 +5,7 @@ import Footer from './Footer.jsx';
 import MainView from './MainView.jsx';
 import searchYoutube from '../models/searchYoutube';
 import searchSpotify from '../models/searchSpotify';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class App extends React.Component {
       device_id: null,
       currYoutube: null,
       queue: [],
+      playlists: [],
+      viewPlaylist: false,
     }
     this.handleNavSearchChange = this.handleNavSearchChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -30,6 +33,9 @@ class App extends React.Component {
     this.addToQueue = this.addToQueue.bind(this);
     this.nextInQueue = this.nextInQueue.bind(this);
     this.prevInQueue = this.prevInQueue.bind(this);
+    this.handlePlaylistButtonClick = this.handlePlaylistButtonClick.bind(this);
+    this.changePlaylistView = this.changePlaylistView.bind(this);
+    this.handleUsePlaylist = this.handleUsePlaylist.bind(this);
   }
 
   componentWillMount() {
@@ -73,6 +79,17 @@ class App extends React.Component {
         this.playNow(nextSong[0], nextSong[1]);
       })
     }
+  }
+
+  handlePlaylistButtonClick() {
+    axios.get('/playlist')
+      .then((response) => {
+        const savedPlaylists = response.data;
+        this.setState({
+          playlists: savedPlaylists,
+          viewPlaylist: true,
+        })
+      });
   }
 
   prevInQueue() {
@@ -144,6 +161,14 @@ class App extends React.Component {
     });
   }
 
+  handleUsePlaylist(i) {
+    const { playlists } = this.state;
+    const loadedPlaylist = playlists[i].playlists.queue;
+    this.setState({
+      queue: loadedPlaylist
+    });
+  }
+
   playNow(type, item) {
     const { currYoutube } = this.state;
     this.setState({ play: true });
@@ -212,8 +237,15 @@ class App extends React.Component {
     }
   }
 
+  changePlaylistView() {
+    const { viewPlaylist } = this.state;
+    this.setState({
+      viewPlaylist: !viewPlaylist
+    })
+  }
+
   render() {
-    const { youtubeVideos, currSong, spotifyTracks, play, queue, currIndex } = this.state;
+    const { youtubeVideos, currSong, spotifyTracks, play, queue, currIndex, playlists, viewPlaylist } = this.state;
 
     return (
 
@@ -221,12 +253,17 @@ class App extends React.Component {
         <Nav 
           handleNavSearchChange={this.handleNavSearchChange}
           handleSearchSubmit={this.handleSearchSubmit}
+          handlePlaylistButtonClick={this.handlePlaylistButtonClick}
         />
         <MainView
           youtubeVideos={youtubeVideos}
           spotifyTracks={spotifyTracks}
           playNow={this.playNow}
+          playlists={playlists}
           addToQueue={this.addToQueue}
+          viewPlaylist={viewPlaylist}
+          changePlaylistView={this.changePlaylistView}
+          handleUsePlaylist={this.handleUsePlaylist}
         />
         <Sidebar 
           queue={queue}

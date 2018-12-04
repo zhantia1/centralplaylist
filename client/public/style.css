@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: row;
   padding: 16px;
+  margin-bottom: 40px;
 }
 
 #sidebar {
@@ -24,40 +25,35 @@
   top: 0;
   position: fixed;
   right: 0;
-  height: 40px;
+  height: 65px;
   padding: 10px 16px;
-  background-color: aliceblue;
+  background-color: slategray;
   text-align: center;
   z-index: 1;
 }
 
 #player {
   text-align: center;
+  z-index: -10;
 }
 
 #Footer {
   width: 100%;
   position: fixed;
-  height: 50px;
+  height: 45px;
   left: 0;
   bottom: 0;
-  background-color: aliceblue;
+  background-color: slategray;
   text-align: center;
   z-index: 3;
-}
-
-#spotify-login {
-  padding: 5px;
-  margin-right: 10px;
-  position: relative;
-  border: solid black;
-  border-radius: 8px;
 }
 
 .youtube-video-entry {
   margin: 10px;
   border: solid black 1px;
   padding: 10px;
+  display: flex;
+  width: 350px;
 }
 
 .spotify-track-entry {
@@ -66,28 +62,43 @@
   padding: 10px;
 }
 
-button {
-  background-color: rgb(35, 151, 136);
-  font-size: 16px;
-  border-radius: 8px;
-  transition-duration: 0.5s;
-  margin: 10px;
-}
-
-button:hover {
-  background-color: rgb(158, 236, 234);
-}
-
 input[type=text] {
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: 2px solid slategray;
-  border-radius: 5px;
+  width: 500px;
 }
 
 .currTrack {
   color: rgb(110, 44, 44);
   font-weight: bold;
+}
+
+.search-button {
+  transform: translate(2px, -25%);
+}
+
+.playlist-button {
+  transform: translate(2px, -25%);
+}
+
+#queue {
+  margin-left: 10px;
+}
+
+.youtube-right {
+  padding: 5px;
+}
+
+.youtube-left {
+  padding: 5px;
+}
+
+.spotify-top {
+  display: flex;
+}
+
+.spotify-buttons {
+  padding: 12px;
+}
+
+.playlist-entry {
+  display: flex;
 }

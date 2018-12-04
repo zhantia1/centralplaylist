@@ -1,21 +1,25 @@
 import React from 'react';
-// import Search from './Search.jsx';
+import { Button, Icon, Input } from 'semantic-ui-react';
 
-const Nav = (props) => (
+const Nav = ({handleNavSearchChange, handleSearchSubmit, handlePlaylistButtonClick}) => (
 
   <div id="nav">
-    <a id="spotify-login" href="/login">LOGIN TO SPOTIFY</a>
-    <input
+    <Button animated as='a' size='big' id="spotify-login" href="/login">
+      <Button.Content visible>
+        <Icon name='spotify' />
+      </Button.Content>
+      <Button.Content hidden>AUTH</Button.Content>
+    </Button>
+    <Input icon='search' placeholder='Search for songs...'
       type="text"
-      onChange={(e) => props.handleNavSearchChange(e)}
+      onChange={(e) => handleNavSearchChange(e)}
     >
-    </input>
-    <button
-      onClick={(e) => props.handleSearchSubmit(e)}
-    >
+    </Input>
+    <Button icon labelPosition='right' onClick={(e) => handleSearchSubmit(e)}>
+      <Icon name='search' />
       Search
-    </button>
-    <button>Login</button>
+    </Button>
+    <Button onClick={(e) => handlePlaylistButtonClick(e)}>Playlists</Button>
   </div>
 
 )
