@@ -15,7 +15,6 @@ const Player = ({ currSong, handleYoutubePlayer, play, nextInQueue }) => {
   return (
   !currSong ? <div id="player">Please wait</div> :
       <div id="player">
-          <h1>YOUTUBE PLAYER</h1>
           <YouTube
             videoId={currSong[1].id.videoId}
             opts={options}

@@ -4,6 +4,7 @@ import YoutubeSearchListEntry from './YoutubeSearchListEntry.jsx';
 var YoutubeSearchList = ({ youtubeVideos, playNow, addToQueue }) => (
   !youtubeVideos ? <div className="youtube-searches">Please wait</div> :
     <div className="youtube-searches">
+      <h3>Youtube Searches:</h3>
       {youtubeVideos.map((video) =>
         <YoutubeSearchListEntry
           key={video.etag}

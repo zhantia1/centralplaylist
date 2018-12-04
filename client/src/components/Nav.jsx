@@ -4,6 +4,7 @@ import React from 'react';
 const Nav = (props) => (
 
   <div id="nav">
+    <a id="spotify-login" href="/login">LOGIN TO SPOTIFY</a>
     <input
       type="text"
       onChange={(e) => props.handleNavSearchChange(e)}

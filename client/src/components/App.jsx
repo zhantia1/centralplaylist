@@ -218,7 +218,6 @@ class App extends React.Component {
     return (
 
       <div>
-        <a id="spotify-login" href="/login">LOGIN TO SPOTIFY</a> :
         <Nav 
           handleNavSearchChange={this.handleNavSearchChange}
           handleSearchSubmit={this.handleSearchSubmit}
