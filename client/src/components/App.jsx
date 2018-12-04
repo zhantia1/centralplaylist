@@ -54,7 +54,6 @@ class App extends React.Component {
     this.setState({
       queue: newQueue,
     });
-    console.log(this.state)
   }
 
   nextInQueue() {
@@ -72,7 +71,6 @@ class App extends React.Component {
         currIndex: nextIndex,
       }, () => {
         this.playNow(nextSong[0], nextSong[1]);
-        console.log(this.state)
       })
     }
   }
@@ -92,7 +90,6 @@ class App extends React.Component {
         currIndex: prevIndex,
       }, () => {
         this.playNow(prevSong[0], prevSong[1]);
-        console.log(this.state)
       })
     }
   }
@@ -201,16 +198,22 @@ class App extends React.Component {
         });
       });
 
-      this.player.on('player_state_changed', state => { 
-        console.log('SPOTIFY STATE', state); 
-      });
+      this.player.addListener('player_state_changed', state => {
+          console.log('SPOTIFY STATE', state); 
+          if(state.paused && state.position === 0) {
+            console.log('Track ended');
+            this.nextInQueue();
+          }
+        }
+      );
+
       // connect
       this.player.connect();
     }
   }
 
   render() {
-    const { youtubeVideos, currSong, spotifyTracks, play, queue } = this.state;
+    const { youtubeVideos, currSong, spotifyTracks, play, queue, currIndex } = this.state;
 
     return (
 
@@ -228,9 +231,11 @@ class App extends React.Component {
         />
         <Sidebar 
           queue={queue}
+          currIndex={currIndex}
           youtubeVideos={youtubeVideos}
           currSong={currSong}
           play={play}
+          nextInQueue={this.nextInQueue}
           handleYoutubePlayer={this.handleYoutubePlayer}
         />
         <Footer 
