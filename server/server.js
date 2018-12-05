@@ -79,7 +79,7 @@ app.get('/callback', function(req, res) {
         
         var access_token = body.access_token,
         refresh_token = body.refresh_token;
-        
+        var expires_in = body.expires_in;        
         // var options = {
         //   url: 'https://api.spotify.com/v1/me',
         //   headers: { 'Authorization': 'Bearer ' + access_token },
@@ -95,7 +95,8 @@ app.get('/callback', function(req, res) {
         res.redirect('/#' +
         querystring.stringify({
           access_token: access_token,
-          refresh_token: refresh_token
+          refresh_token: refresh_token,
+          expires_in: expires_in
         }));
       } else {
         res.redirect('/#' +
@@ -114,7 +115,8 @@ app.get('/playlist', (req, res) => {
 })
 
 app.get('/refresh_token', function(req, res) {
-  
+  console.log('request received')
+  console.log(req.query)
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
   var authOptions = {

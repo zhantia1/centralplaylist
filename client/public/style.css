@@ -68,7 +68,7 @@ input[type=text] {
 }
 
 .currTrack {
-  color: rgb(110, 44, 44);
+  color: rgb(110, 44, 44) !important;
   font-weight: bold;
 }
 

@@ -23,6 +23,7 @@ class App extends React.Component {
       queue: [],
       playlists: [],
       viewPlaylist: false,
+      access_token: null,
     }
     this.handleNavSearchChange = this.handleNavSearchChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -153,6 +154,7 @@ class App extends React.Component {
         });
       }
     });
+
     searchSpotify({ query }, (tracks) => {
       console.log('spotify searched!', tracks);
       this.setState({
@@ -165,7 +167,8 @@ class App extends React.Component {
     const { playlists } = this.state;
     const loadedPlaylist = playlists[i].playlists.queue;
     this.setState({
-      queue: loadedPlaylist
+      queue: loadedPlaylist,
+      currIndex: 0,
     });
   }
 
@@ -192,7 +195,8 @@ class App extends React.Component {
 
   spotifyPlay(spotify_uri) {
     const { device_id } = this.state;
-    let access_token = window.location.hash.slice(14);
+    let access_token = this.state.access_token;
+    let refresh_token = window.location.hash.split('&')[1].slice(14);
 
     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
       method: 'PUT',
@@ -206,7 +210,26 @@ class App extends React.Component {
 
   checkForPlayer() {
     let access_token = window.location.hash.slice(14);
+    let refresh_token = window.location.hash.split('&')[1].slice(14);
+    let expires_in = parseInt(window.location.hash.split('&')[2].slice(11));
+
     if (window.Spotify !== undefined) {
+      
+      // function to renew access token 
+      setInterval(()=> {
+        axios.get('/refresh_token', {
+          params: {
+            refresh_token: refresh_token,
+          }
+        })
+          .then((response) => {
+            access_token = response.data.access_token;
+            this.setState({
+              access_token: access_token,
+            })
+            console.log(response);
+          })
+      }, expires_in * 1000);
 
       clearInterval(this.playerCheckInterval);
 
@@ -219,6 +242,7 @@ class App extends React.Component {
       this.player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id);
         this.setState({
+          access_token: access_token,
           device_id: device_id
         });
       });
