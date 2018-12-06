@@ -5,8 +5,8 @@ const request = require('request'); // "Request" library
 const cors = require('cors');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
-const db = require('../db/db.js');
-const Playlist = require('../db/playList.js');
+require('../db/db');
+const Playlist = require('../db/playList');
 
 app.use(express.static(__dirname + '/../client/public'))
   .use(cors())

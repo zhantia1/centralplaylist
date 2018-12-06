@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Icon, Input } from 'semantic-ui-react';
 
-const Nav = ({handleNavSearchChange, handleSearchSubmit, handlePlaylistButtonClick}) => (
+const Nav = ({handleNavSearchChange, handleSearchSubmit, handlePlaylistButtonClick, spotifyReady}) => (
 
   <div id="nav">
-    <Button animated as='a' size='big' id="spotify-login" href="/login">
+    <Button animated as='a' size='big' id="spotify-login" className={spotifyReady ? 'spotify-active' : 'spotify-not-active'} href="/login">
       <Button.Content visible>
         <Icon name='spotify' />
       </Button.Content>

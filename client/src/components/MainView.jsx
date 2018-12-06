@@ -1,7 +1,7 @@
 import React from 'react';
-import YoutubeSearchList from './YoutubeSearchList.jsx';
-import SpotifySearchList from './SpotifySearchList.jsx';
-import Playlists from './Playlists.jsx';
+import YoutubeSearchList from './YoutubeSearchList';
+import SpotifySearchList from './SpotifySearchList';
+import Playlists from './Playlists';
 
 const MainView = ({ youtubeVideos, spotifyTracks, playNow, addToQueue, playlists, viewPlaylist, changePlaylistView, handleUsePlaylist }) => (
 

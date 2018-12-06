@@ -1,8 +1,8 @@
 import React from 'react';
-import Nav from './Nav.jsx';
-import Sidebar from './Sidebar.jsx';
-import Footer from './Footer.jsx';
-import MainView from './MainView.jsx';
+import Nav from './Nav';
+import Sidebar from './Sidebar';
+import Footer from './Footer';
+import MainView from './MainView';
 import searchYoutube from '../models/searchYoutube';
 import searchSpotify from '../models/searchSpotify';
 import axios from 'axios';
@@ -24,6 +24,7 @@ class App extends React.Component {
       playlists: [],
       viewPlaylist: false,
       access_token: null,
+      spotifyReady: false,
     }
     this.handleNavSearchChange = this.handleNavSearchChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -60,6 +61,14 @@ class App extends React.Component {
     newQueue.push([type, item]);
     this.setState({
       queue: newQueue,
+    }, () => {
+      const { queue } = this.state;
+      console.log(queue);
+      // play song if first song in queue
+      if (queue.length === 1) {
+        const currSong = queue[0];
+        this.playNow(currSong[0], currSong[1])
+      }
     });
   }
 
@@ -208,6 +217,13 @@ class App extends React.Component {
     })
   }
 
+  toggleSpotifyReady() {
+    const { spotifyReady } = this.state;
+    this.setState({
+      spotifyReady: !spotifyReady,
+    })
+  }
+
   checkForPlayer() {
     let access_token = window.location.hash.slice(14);
     let refresh_token = window.location.hash.split('&')[1].slice(14);
@@ -238,12 +254,14 @@ class App extends React.Component {
         getOAuthToken: cb => { cb(access_token); },
       });
 
-      // event handlers?
+      // event handlers
       this.player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id);
         this.setState({
           access_token: access_token,
           device_id: device_id
+        }, () => {
+          this.toggleSpotifyReady();
         });
       });
 
@@ -269,7 +287,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { youtubeVideos, currSong, spotifyTracks, play, queue, currIndex, playlists, viewPlaylist } = this.state;
+    const { youtubeVideos, currSong, spotifyTracks, play, queue, currIndex, playlists, viewPlaylist, spotifyReady } = this.state;
 
     return (
 
@@ -278,6 +296,7 @@ class App extends React.Component {
           handleNavSearchChange={this.handleNavSearchChange}
           handleSearchSubmit={this.handleSearchSubmit}
           handlePlaylistButtonClick={this.handlePlaylistButtonClick}
+          spotifyReady={spotifyReady}
         />
         <MainView
           youtubeVideos={youtubeVideos}

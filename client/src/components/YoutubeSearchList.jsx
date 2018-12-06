@@ -1,5 +1,5 @@
 import React from 'react';
-import YoutubeSearchListEntry from './YoutubeSearchListEntry.jsx';
+import YoutubeSearchListEntry from './YoutubeSearchListEntry';
 
 var YoutubeSearchList = ({ youtubeVideos, playNow, addToQueue }) => (
   !youtubeVideos ? <div className="youtube-searches">Please wait</div> :

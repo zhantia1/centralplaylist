@@ -1,8 +1,8 @@
 import React from 'react';
-import SpotifySearchListEntry from './SpotifySearchListEntry.jsx';
+import SpotifySearchListEntry from './SpotifySearchListEntry';
 
 var SpotifySearchList = ({ spotifyTracks, playNow, addToQueue }) => (
-  !spotifyTracks ? <div className="spotify-searches">Please wait</div> :
+  !spotifyTracks ? <div className="spotify-searches">Please press Spotify button...</div> :
     <div className="spotify-searches">
       <h3>Spotify Searches:</h3>
       {spotifyTracks.map((track) =>

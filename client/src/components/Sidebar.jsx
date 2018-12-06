@@ -1,6 +1,6 @@
 import React from 'react';
-import Queue from './Queue.jsx';
-import Player from './Player.jsx';
+import Queue from './Queue';
+import Player from './Player';
 
 const Sidebar = ({ queue, currSong, play, handleYoutubePlayer, nextInQueue, currIndex }) => (
 

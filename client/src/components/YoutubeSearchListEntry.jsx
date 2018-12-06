@@ -16,5 +16,4 @@ var YoutubeSearchListEntry = ({ video, playNow, addToQueue }) => (
 
 );
 
-
 export default YoutubeSearchListEntry;
