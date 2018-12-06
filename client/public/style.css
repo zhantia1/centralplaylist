@@ -67,9 +67,15 @@ input[type=text] {
   width: 500px;
 }
 
-.currTrack {
+.currTrack-youtube {
   transition: all ease-in-out 0.7s !important;
-  color: rgb(255, 255, 255) !important;
+  color: rgb(221, 42, 42) !important;
+  font-weight: bold;
+}
+
+.currTrack-spotify {
+  transition: all ease-in-out 0.7s !important;
+  color: #1db954 !important;
   font-weight: bold;
 }
 

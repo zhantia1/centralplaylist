@@ -33,6 +33,7 @@ class App extends React.Component {
     this.togglePlay = this.togglePlay.bind(this);
     this.handleYoutubePlayer = this.handleYoutubePlayer.bind(this);
     this.addToQueue = this.addToQueue.bind(this);
+    this.removeFromQueue = this.removeFromQueue.bind(this);
     this.nextInQueue = this.nextInQueue.bind(this);
     this.prevInQueue = this.prevInQueue.bind(this);
     this.handlePlaylistButtonClick = this.handlePlaylistButtonClick.bind(this);
@@ -70,6 +71,20 @@ class App extends React.Component {
         this.playNow(currSong[0], currSong[1])
       }
     });
+  }
+
+  removeFromQueue(index) {
+    const { queue, currIndex } = this.state;
+    let newQueue = queue.slice();
+    let newIndex = currIndex;
+    newQueue.splice(index, 1);
+    if (index < currIndex) {
+      newIndex = currIndex - 1;
+    }
+    this.setState({
+      queue: newQueue,
+      currIndex: newIndex,
+    })
   }
 
   nextInQueue() {
@@ -175,13 +190,17 @@ class App extends React.Component {
 
   handleUsePlaylist(i) {
     const { playlists } = this.state;
-    const loadedPlaylist = playlists[i].playlists.queue;
+    let loadedPlaylist = playlists[i].playlists.queue;
     this.setState({
-      queue: loadedPlaylist,
-      currIndex: 0,
+      queue: [],
     }, () => {
-      this.prevInQueue();
-    });
+      this.setState({
+        queue: loadedPlaylist,
+        currIndex: 0,
+      }, () => {
+        this.prevInQueue();
+      });
+    })
   }
 
   playNow(type, item) {
@@ -313,6 +332,7 @@ class App extends React.Component {
         />
         <Sidebar 
           queue={queue}
+          removeFromQueue={this.removeFromQueue}
           currIndex={currIndex}
           youtubeVideos={youtubeVideos}
           currSong={currSong}

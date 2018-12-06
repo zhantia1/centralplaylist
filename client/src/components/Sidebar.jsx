@@ -2,12 +2,13 @@ import React from 'react';
 import Queue from './Queue';
 import Player from './Player';
 
-const Sidebar = ({ queue, currSong, play, handleYoutubePlayer, nextInQueue, currIndex }) => (
+const Sidebar = ({ queue, currSong, play, handleYoutubePlayer, nextInQueue, currIndex, removeFromQueue }) => (
 
       <div id="sidebar">
         <Queue 
           queue={queue}
           currIndex={currIndex}
+          removeFromQueue={removeFromQueue}
         />
         <Player 
           currSong={currSong}
