@@ -122,6 +122,7 @@ class App extends React.Component {
   }
 
   handleYoutubePlayer(e) {
+    // grab the youtube iframe object to call playVideo() pauseVideo() on
     this.setState({
       currYoutube: e.target
     })
@@ -178,6 +179,8 @@ class App extends React.Component {
     this.setState({
       queue: loadedPlaylist,
       currIndex: 0,
+    }, () => {
+      this.prevInQueue();
     });
   }
 
