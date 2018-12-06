@@ -1,13 +1,13 @@
 {
   "name": "centralplaylist",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create and play a playlist from Spotify and Youtube",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/server.js",
     "compile": "webpack -d --watch"
   },
-  "author": "",
+  "author": "Tianze Zhan",
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.1.5",

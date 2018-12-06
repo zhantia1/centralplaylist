@@ -20,9 +20,9 @@ const Queue = ({ queue, currIndex }) => (
           if (elem[0] === 'spotify') {
             if (index === currIndex) {
               return (
-                <List.Item className="currTrack" key={elem[1].id}>
+                <List.Item key={elem[1].id}>
                   <List.Content>
-                    <List.Header>
+                    <List.Header className="currTrack">
                       {elem[1].name} by {elem[1].artists[0].name}
                     </List.Header>
                   </List.Content>
@@ -42,9 +42,9 @@ const Queue = ({ queue, currIndex }) => (
           } else {
             if (index === currIndex) {
               return (
-                <List.Item className='currTrack' key={elem[1].etag}>
+                <List.Item key={elem[1].etag}>
                     <List.Content>
-                        <List.Header>
+                        <List.Header className='currTrack'>
                           {elem[1].snippet.title}
                         </List.Header>
                       </List.Content>

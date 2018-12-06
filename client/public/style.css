@@ -68,7 +68,8 @@ input[type=text] {
 }
 
 .currTrack {
-  color: rgb(110, 44, 44) !important;
+  transition: all ease-in-out 0.7s !important;
+  color: rgb(255, 255, 255) !important;
   font-weight: bold;
 }
 
