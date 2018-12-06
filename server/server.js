@@ -1,21 +1,22 @@
 const express = require('express');
 const app = express();
 const PORT = 3000;
-const request = require('request'); // "Request" library
+const request = require('request');
 const cors = require('cors');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 require('../db/db');
 const Playlist = require('../db/playList');
+const SPOTIFY_API_KEYS = require('./spotifyAPI')
 
 app.use(express.static(__dirname + '/../client/public'))
   .use(cors())
   .use(cookieParser())
   .use(express.urlencoded());
 
-const client_id = '67f8f02307f74dafa4d23af41f134d6c'; // Your client id
-const client_secret = '4f8a4afe481743a79301ce3840b2453c'; // Your secret
-const redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
+const client_id = SPOTIFY_API_KEYS.client_id;
+const client_secret = SPOTIFY_API_KEYS.client_secret;
+const redirect_uri = SPOTIFY_API_KEYS.redirect_uri; // must be the same as registered redirect on Spotify
 
 const generateRandomString = function(length) {
   var text = '';
