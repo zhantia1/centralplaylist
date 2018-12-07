@@ -126,9 +126,13 @@ input[type=text] {
   margin-top: 5px;
 }
 
-/* .spotify-not-active {
-  transition: all ease-in-out 2s !important;
-} */
+.queue-list-item {
+  display: flex;
+}
+
+.queue-list-button {
+  align-self: flex-start;
+}
 
 .spotify-active {
   transition: all ease-in-out 2s !important;

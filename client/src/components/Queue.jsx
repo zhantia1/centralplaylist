@@ -21,24 +21,24 @@ const Queue = ({ queue, currIndex, removeFromQueue }) => (
             if (index === currIndex) {
               return (
                 <List.Item key={`${index}${elem[1].id}`}>
-                  <List.Content>
+                  <List.Content className="queue-list-item">
                     <List.Header className="currTrack-spotify">
                       {elem[1].name} by {elem[1].artists[0].name}
                     </List.Header>
-                    <Button onClick={() => removeFromQueue(index)} size="mini" circular icon="minus"></Button>
-                    <Button size="mini" circular icon="save"></Button>
+                    <Button className="queue-list-button" onClick={() => removeFromQueue(index)} size="mini" circular icon="minus"></Button>
+                    <Button className="queue-list-button" size="mini" circular icon="save"></Button>
                   </List.Content>
                 </List.Item>
               )
             } else {
                 return (
                   <List.Item key={`${index}${elem[1].id}`}>
-                    <List.Content>
+                    <List.Content className="queue-list-item">
                         <List.Header>
                           {elem[1].name} by {elem[1].artists[0].name}
                         </List.Header>
-                        <Button onClick={() => removeFromQueue(index)} size="mini" circular icon="minus"></Button>
-                        <Button size="mini" circular icon="save"></Button>
+                        <Button className="queue-list-button" onClick={() => removeFromQueue(index)} size="mini" circular icon="minus"></Button>
+                        <Button className="queue-list-button" size="mini" circular icon="save"></Button>
                       </List.Content>
                   </List.Item>
                 )
