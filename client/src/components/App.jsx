@@ -11,6 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      autoplay: 0,
       currIndex: 0,
       play: false,
       firstMount: true,
@@ -87,22 +88,41 @@ class App extends React.Component {
     })
   }
 
-  nextInQueue() {
+  nextInQueue(autoplay = true) {
     const { currSong, queue, currIndex } = this.state;
-    if (queue.length === 0) {
-      this.playNow(currSong[0], currSong[1])
-    } else {
-      let nextIndex = currIndex;
-      if (currIndex !== (queue.length - 1)) {
-        nextIndex += 1;
+    if (autoplay) {
+      if (queue.length === 0) {
+        this.playNow(currSong[0], currSong[1])
+      } else {
+        let nextIndex = currIndex;
+        if (currIndex !== (queue.length - 1)) {
+          nextIndex += 1;
+        }
+        let nextSong = queue[nextIndex];
+        this.setState({
+          currSong: nextSong,
+          currIndex: nextIndex,
+        }, () => {
+          this.playNow(nextSong[0], nextSong[1]);
+        })
       }
-      let nextSong = queue[nextIndex];
-      this.setState({
-        currSong: nextSong,
-        currIndex: nextIndex,
-      }, () => {
-        this.playNow(nextSong[0], nextSong[1]);
-      })
+    } else {
+      const { autoplay } = this.state;
+      // spotify api is dumb and has no onTrackEnd listener
+      // our listener fires off 3 events, so we only want the 3rd event to trigger
+      // the nextInQueue function
+      if (autoplay !== 2) {
+        this.setState({
+          autoplay: autoplay + 1,
+        })
+      } else {
+        this.setState({
+          autoplay: 0,
+        }, () => {
+          console.log('track ended')
+          this.nextInQueue();
+        })
+      }
     }
   }
 
@@ -219,8 +239,9 @@ class App extends React.Component {
       // else its a spotify song
       this.setState({
         currSong: ['spotify', item]
+      }, () => {
+        this.spotifyPlay(item.uri)
       })
-      this.spotifyPlay(item.uri)
     }
   }
 
@@ -264,8 +285,10 @@ class App extends React.Component {
             access_token = response.data.access_token;
             this.setState({
               access_token: access_token,
+            }, () => {
+              console.log('refreshed access');
+              this.toggleSpotifyReady();
             })
-            console.log(response);
           })
       }, expires_in * 1000);
 
@@ -288,13 +311,13 @@ class App extends React.Component {
       });
 
       this.player.addListener('player_state_changed', state => {
-          console.log('SPOTIFY STATE', state); 
-          if(state.paused && state.position === 0) {
-            console.log('Track ended');
-            this.nextInQueue();
+          console.log('SPOTIFY STATE', state);
+          if (state.paused && state.position === 0 && (state.duration > 0)) {
+            this.nextInQueue(false);
           }
         }
       );
+
 
       // connect
       this.player.connect();
